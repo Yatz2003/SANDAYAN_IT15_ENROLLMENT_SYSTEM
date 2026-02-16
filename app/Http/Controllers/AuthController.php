@@ -18,7 +18,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $data = $request->validate([
-            'email' => 'required|email|ends_with:@tc.umindanao.edu.ph',
+            'email' => 'required|email|ends_with:@umindanao.edu.ph,@tc.umindanao.edu.ph',
         ]);
 
         $student = Student::where('email', $data['email'])->first();
@@ -45,7 +45,7 @@ class AuthController extends Controller
             'student_number' => 'required|integer|unique:students,student_number',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:students,email|ends_with:@tc.umindanao.edu.ph',
+            'email' => 'required|email|unique:students,email|ends_with:@umindanao.edu.ph,@tc.umindanao.edu.ph',
         ]);
 
         $student = Student::create([

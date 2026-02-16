@@ -19,27 +19,31 @@
         </ul>
 
         <h3>Enroll in a Course</h3>
-        @if(session('error'))
-            <div class="error">{{ session('error') }}</div>
-        @endif
-        @if(session('success'))
-            <div class="success">{{ session('success') }}</div>
-        @endif
+        @if(session('student_id') == $student->id)
+            @if(session('error'))
+                <div class="error">{{ session('error') }}</div>
+            @endif
+            @if(session('success'))
+                <div class="success">{{ session('success') }}</div>
+            @endif
 
-        <form method="POST" action="{{ route('students.enroll', $student) }}">
-            @csrf
-            <div class="form-row">
-                <label for="course_id">Course</label>
-                <select name="course_id" id="course_id">
-                    @foreach($courses as $course)
-                        <option value="{{ $course->id }}">{{ $course->course_name }} ({{ $course->course_code }}) - capacity {{ $course->capacity }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-row">
-                <button class="btn" type="submit">Enroll</button>
-                <a class="btn secondary" href="{{ route('students.index') }}">Cancel</a>
-            </div>
-        </form>
+            <form method="POST" action="{{ route('students.enroll', $student) }}">
+                @csrf
+                <div class="form-row">
+                    <label for="course_id">Course</label>
+                    <select name="course_id" id="course_id">
+                        @foreach($courses as $course)
+                            <option value="{{ $course->id }}">{{ $course->course_name }} ({{ $course->course_code }}) - capacity {{ $course->capacity }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-row">
+                    <button class="btn" type="submit">Enroll</button>
+                    <a class="btn secondary" href="{{ route('students.index') }}">Cancel</a>
+                </div>
+            </form>
+        @else
+            <p class="muted">Log in as this student to enroll in courses.</p>
+        @endif
     </div>
 @endsection
